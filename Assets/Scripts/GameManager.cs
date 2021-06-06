@@ -66,9 +66,9 @@ public class GameManager : MonoBehaviour
 
             switch(messageWB)
             {
-                case "Top": ballRB.AddForce(Vector3.forward * 3);
+                case "Front": ballRB.AddForce(Vector3.forward * 3);
                     break;
-                case "Down": ballRB.AddForce(Vector3.back * 3);
+                case "Back": ballRB.AddForce(Vector3.back * 3);
                     break;
                 case "Left": ballRB.AddForce(Vector3.left * 3);
                     break;
