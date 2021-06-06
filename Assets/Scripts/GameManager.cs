@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        ball = GameObject.Find("Sphere");
+        ball = GameObject.Find("Ball Player");
         ballRB = ball.GetComponent<Rigidbody>();
         websocket = new WebSocket("ws://localhost:8080");
         audioSource = GetComponent<AudioSource>();
