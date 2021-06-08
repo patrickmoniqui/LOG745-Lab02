@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public GameObject timer;
     public float timerLimit;
+    private bool GestureEnabled = true;
     WebSocket websocket;
 
     // Start is called before the first frame update
@@ -66,24 +67,34 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(messageWB);
 
-            switch(messageWB)
+            if(GestureEnabled)
             {
-                case "Neutre": // do nothing
-                    break;
-                case "Top": ballRB.AddForce(Vector3.forward * 2 * ballForceMultiplier);
-                    break;
-                case "Down": ballRB.AddForce(Vector3.back * 2 * ballForceMultiplier);
-                    break;
-                case "Left": ballRB.AddForce(Vector3.left * 2 * ballForceMultiplier);
-                    break;
-                case "Right": ballRB.AddForce(Vector3.right * 2 * ballForceMultiplier);
-                    break;
-                case "First": ballRB.AddForce(ballRB.velocity * 5 * ballForceMultiplier);
-                    break;
-                case "Stop": ballRB.velocity = Vector3.zero;
-                    break;
-                case "Peace": ballRB.AddForce(Vector3.up * 5);
-                    break;
+                switch (messageWB)
+                {
+                    case "Neutre": // do nothing
+                        break;
+                    case "Top":
+                        ballRB.AddForce(Vector3.forward * 2 * ballForceMultiplier);
+                        break;
+                    case "Down":
+                        ballRB.AddForce(Vector3.back * 2 * ballForceMultiplier);
+                        break;
+                    case "Left":
+                        ballRB.AddForce(Vector3.left * 2 * ballForceMultiplier);
+                        break;
+                    case "Right":
+                        ballRB.AddForce(Vector3.right * 2 * ballForceMultiplier);
+                        break;
+                    case "First":
+                        ballRB.AddForce(ballRB.velocity * 5 * ballForceMultiplier);
+                        break;
+                    case "Stop":
+                        ballRB.velocity = Vector3.zero;
+                        break;
+                    case "Peace":
+                        ballRB.AddForce(Vector3.up * 5);
+                        break;
+                }
             }
         }
 
@@ -110,6 +121,11 @@ public class GameManager : MonoBehaviour
             // Sending plain text
             await websocket.SendText("plain text message");
         }
+    }
+
+    public void ToggleGesture()
+    {
+        GestureEnabled = !GestureEnabled;
     }
 
     private async void OnApplicationQuit()
