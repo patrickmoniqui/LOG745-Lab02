@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
 
             switch(messageWB)
             {
+                case "Neutre": // do nothing
+                    break;
                 case "Top": ballRB.AddForce(Vector3.forward * 2 * ballForceMultiplier);
                     break;
                 case "Down": ballRB.AddForce(Vector3.back * 2 * ballForceMultiplier);
@@ -76,7 +78,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case "Right": ballRB.AddForce(Vector3.right * 2 * ballForceMultiplier);
                     break;
-                case "First": 
+                case "First": ballRB.AddForce(ballRB.velocity * 5 * ballForceMultiplier);
                     break;
                 case "Stop": ballRB.velocity = Vector3.zero;
                     break;
