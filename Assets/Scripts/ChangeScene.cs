@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +5,6 @@ using UnityEngine.UI;
 public class ChangeScene : MonoBehaviour
 {
     public static bool GameIsPaused = false;
-    //Button settingsButton = FindObjectOfType<Button>();
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +36,11 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void ShowPanel(GameObject panel)
     {
         if (panel != null) panel.SetActive(true);
@@ -59,11 +61,6 @@ public class ChangeScene : MonoBehaviour
             {
                 GameObject.Find("StartPauseButtonText").GetComponent<Text>().text = "Resume";
             }
-            GUI.Label(new Rect(100, 100, 50, 30), "PAUSED");
-        }
-        else
-        {
-            GUI.Label(new Rect(100, 100, 50, 30), "RESUMED");
         }
         
     }

@@ -11,15 +11,17 @@ public class GameManager : MonoBehaviour
     public GameObject ball;
     public Rigidbody ballRB;
     public GameObject ballSpeed;
+    public static float ballForceMultiplier = 1f;
     public string messageWB;
     public AudioClip collisionAudio;
     public AudioSource audioSource;
+    public GameObject timer;
+    public float timerLimit;
     WebSocket websocket;
 
     // Start is called before the first frame update
     async void Start()
     {
-        ball = GameObject.Find("Sphere");
         ballRB = ball.GetComponent<Rigidbody>();
         websocket = new WebSocket("ws://localhost:8080");
         audioSource = GetComponent<AudioSource>();
@@ -66,24 +68,34 @@ public class GameManager : MonoBehaviour
 
             switch(messageWB)
             {
-                case "Top": ballRB.AddForce(Vector3.forward * 3);
+                case "Top": ballRB.AddForce(Vector3.forward * 2 * ballForceMultiplier);
                     break;
-                case "Down": ballRB.AddForce(Vector3.back * 3);
+                case "Down": ballRB.AddForce(Vector3.back * 2 * ballForceMultiplier);
                     break;
-                case "Left": ballRB.AddForce(Vector3.left * 3);
+                case "Left": ballRB.AddForce(Vector3.left * 2 * ballForceMultiplier);
                     break;
-                case "Right": ballRB.AddForce(Vector3.right * 3);
+                case "Right": ballRB.AddForce(Vector3.right * 2 * ballForceMultiplier);
+                    break;
+                case "First": 
+                    break;
+                case "Stop": ballRB.velocity = Vector3.zero;
+                    break;
+                case "Peace": ballRB.AddForce(Vector3.up * 5);
                     break;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)) ballRB.AddForce(Vector3.forward * 100);
-        if (Input.GetKeyDown(KeyCode.DownArrow)) ballRB.AddForce(Vector3.back * 100);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) ballRB.AddForce(Vector3.left * 100);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) ballRB.AddForce(Vector3.right * 100);
+        if (Input.GetKeyDown(KeyCode.W)) ballRB.AddForce(Vector3.forward * 100);
+        if (Input.GetKeyDown(KeyCode.S)) ballRB.AddForce(Vector3.back * 100);
+        if (Input.GetKeyDown(KeyCode.A)) ballRB.AddForce(Vector3.left * 100);
+        if (Input.GetKeyDown(KeyCode.D)) ballRB.AddForce(Vector3.right * 100);
         if (Input.GetKeyDown(KeyCode.Space)) ballRB.AddForce(Vector3.up * 300);
 
-        ballSpeed.GetComponent<Text>().text = ballRB.velocity.magnitude.ToString();
+        // Ball Speed
+        ballSpeed.GetComponent<Text>().text = "Speed: " + ballRB.velocity.magnitude.ToString();
+
+        // Timer
+        timer.GetComponent<Text>().text = "Timer: " + ((int)(timerLimit -= Time.deltaTime)).ToString();
     }
 
     async void SendWebSocketMessage()
@@ -101,11 +113,6 @@ public class GameManager : MonoBehaviour
     private async void OnApplicationQuit()
     {
         await websocket.Close();
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        audioSource.PlayOneShot(collisionAudio, 0.7F);
     }
 
 }

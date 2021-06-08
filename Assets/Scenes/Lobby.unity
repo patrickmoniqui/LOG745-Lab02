@@ -1532,8 +1532,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "- Pour contr\xF4ler la balle, faites le geste du pouce en l'air et orienter
-    votre pouce dans la direction souhait\xE9e."
+  m_Text: "- Pour contr\xF4ler la balle: Avancer -> Dos de la main | Reculer -> Palme
+    de la main | Aller vers la droit -> Pouce vers la droite | Gauche -> Pouce vers
+    la gauche | Sauter -> Signe Peace"
 --- !u!222 &1685077702
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1881,7 +1882,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSlider: {fileID: 203937721}
   effectSlider: {fileID: 251627798}
-  audioSource: {fileID: 0}
+  audioSourceMusic: {fileID: 0}
+  audioSourceEffect: {fileID: 0}
 --- !u!4 &2060635671
 Transform:
   m_ObjectHideFlags: 0

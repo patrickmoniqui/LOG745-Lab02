@@ -5,12 +5,11 @@ public class Music : MonoBehaviour
 {
     public Slider musicSlider, effectSlider;
     public AudioSource audioSourceMusic, audioSourceEffect;
-    private static float musicVolume = 1f, effectVolume = 1f;
+    public static float musicVolume = 1f, effectVolume = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        //audioSource = GetComponent<AudioSource>();
         musicSlider.value = musicVolume;
         effectSlider.value = effectVolume;
     }
